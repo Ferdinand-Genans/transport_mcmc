@@ -5,3 +5,5 @@ The article studied for this project is "[Transport map accelerated Markov chain
 The project involved an introduction to the concept of transport maps, a comprehensive study of the articl studiede, and implementation of its algorithm. The implemented algorithm was then compared with the Metropolis-Hastings algorithm.
 
 You can view the project [here](https://ferdinand-genans.github.io/transport_mcmc/transport_mcmc.html).
+
+A pdf version is also available [here](https://github.com/Ferdinand-Genans/transport_mcmc/blob/master/Transport_MCMC_pdf.pdf).
