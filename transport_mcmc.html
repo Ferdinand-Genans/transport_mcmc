@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Introduction &mdash; Transport_mcmc  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/nbsphinx-code-cells.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Welcome to Transport_mcmc’s documentation!" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Transport_mcmc
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#Transport-map">Transport map</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#Knothe-Rosenblatt-rearrangement">Knothe-Rosenblatt rearrangement</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#Transport-map-MCMC">Transport map MCMC</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#MCMC-with-a-fixed-transport-map">MCMC with a fixed transport map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Adaptative-transport-map-MCMC">Adaptative transport map MCMC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Optimisation-problem">Optimisation problem</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Map-parametrization">Map parametrization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Code-of-the-transport-map">Code of the transport map</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#Experimenting-the-algorithm">Experimenting the algorithm</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id1">Transport map</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#Comparing-the-algorithms">Comparing the algorithms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#MH-algorithm">MH algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#MH-with-transport-map">MH with transport map</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#Addaptative-transport-map-MH">Addaptative transport map MH</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#Comparison-after-5-000-samples">Comparison after 5 000 samples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#Conclusion">Conclusion</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Transport_mcmc</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Introduction</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/transport_mcmc.ipynb.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="Introduction">
+<h1>Introduction<a class="headerlink" href="#Introduction" title="Permalink to this heading"></a></h1>
+<p>The authors of the paper “Transport map accelerated Markov chain Monte Carlo” [1] propose a new framework that combines transport of measure maps with the Metropolis-Hastings rule to generate non-Gaussian proposal distributions that can more effectively explore the target density. Their method constructs a lower triangular transport map, which approximates the Knothe-Rosenblatt rearrangement, using information from previous MCMC states. This is achieved through the solution of a convex and
+separable optimization problem, which enables efficient and parallelizable adaptation of the map even for large numbers of samples. The authors demonstrate that their approach produces an adaptive MCMC algorithm that is ergodic for the exact target distribution, even when using inexact or truncated maps. Their numerical experiments show that their method can produce order-of-magnitude speedups over standard MCMC techniques.</p>
+<p>Our study conducted an examination of the main algorithm for efficient sampling from complex probability distributions, the underlying optimization problem that guides its design, and reformulations aimed at enhancing its computational efficiency, which also included a small exploration of transport theory.</p>
+<p>[1] Parno Matthew and Marzouk Youssef. “Transport map accelerated Markov chain Monte Carlo”. In: (Dec. 2014). arXiv: 1412.5492 [stat.CO].</p>
+<p><strong>Remark:</strong> a PDF version of this document is available. We recommend using it to focus on the theory and algorithm explanations.</p>
+</section>
+<section id="Transport-map">
+<h1>Transport map<a class="headerlink" href="#Transport-map" title="Permalink to this heading"></a></h1>
+<p>Since the paper we studied heavily depends on the concept of transport maps, it is crucial to define this notion and outline the necessary properties required for the transport map MCMC algorithm.</p>
+<p><strong>Transport map:</strong> Given two probability measures, <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\nu\)</span>, defined on <span class="math notranslate nohighlight">\(\mathbb{R}^d\)</span>. A Borel map, <span class="math notranslate nohighlight">\(T: \mathbb{R}^d \to \mathbb{R}^d\)</span>, is considered a transport map between <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\nu\)</span> if it satisfies the equality <span class="math notranslate nohighlight">\(\mu(T^{-1}(B)) = \nu(B)\)</span> for every Borel set <span class="math notranslate nohighlight">\(B\)</span>. This is denoted as <span class="math notranslate nohighlight">\(T_{\#}\mu = \nu\)</span>, representing the pushforward of <span class="math notranslate nohighlight">\(\mu\)</span>. The set of all transport maps between <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\nu\)</span> is denoted as
+<span class="math notranslate nohighlight">\(\mathcal{T}(\mu, \nu)\)</span>.</p>
+<p><em>Example:</em> Lets consider <span class="math notranslate nohighlight">\(\mu, \nu \in \mathbb{P}(\mathbb{R})\)</span> with: <span class="math notranslate nohighlight">\(\mu = \delta_0\)</span> and <span class="math notranslate nohighlight">\(\nu = \frac 12\delta_1 + \frac 12 \delta_2\)</span>. We have: <span class="math notranslate nohighlight">\(\mathcal{T}(\mu, \nu) = \emptyset\)</span> but <span class="math notranslate nohighlight">\(\mathcal{T}(\nu, \mu) = \{ T: \text{Borel map}; T(1) = T(2) = 0\}\)</span>. With this example, we see that <span class="math notranslate nohighlight">\(\mathcal{T}(\mu, \nu)\)</span> can be empty or can contain infitintely many Borel maps. We also see that in general: <span class="math notranslate nohighlight">\(\mathcal{T}(\mu, \nu) \neq \mathcal{T}(\nu, \mu)\)</span>.</p>
+<p><strong>Notation:</strong> For the study of our article, we focus on <span class="math notranslate nohighlight">\(\mu, \nu \in \mathbb{P}(R^d)\)</span> two absolutely continuous probabilities wrt the Lebesgue measure. We note there densities <span class="math notranslate nohighlight">\(\rho: \mathbb{R}^d \to \mathbb{R}^+\)</span> resp. <span class="math notranslate nohighlight">\(\pi : \mathbb{R}^d \to \mathbb{R}^+\)</span>.</p>
+<p><strong>Remark:</strong> given <span class="math notranslate nohighlight">\(T \in \mathcal{T}(\mu, \nu)\)</span> by the change-of-variables formula, we have:</p>
+<div class="math notranslate nohighlight">
+\[\rho \circ T^{-1}(x) \det |\nabla T^{-1}(x)| = \pi(x) := T_\#\rho(x)\]</div>
+<p>supposing <span class="math notranslate nohighlight">\(\rho, \pi\)</span> and <span class="math notranslate nohighlight">\(T\)</span> to be regular enough and that such a <span class="math notranslate nohighlight">\(T\)</span> exists.</p>
+<section id="Knothe-Rosenblatt-rearrangement">
+<h2>Knothe-Rosenblatt rearrangement<a class="headerlink" href="#Knothe-Rosenblatt-rearrangement" title="Permalink to this heading"></a></h2>
+<p>As a special case of transport map between two measures, we will focus here on the Knothe-Rosenbaltt rearrangement or simply Knothe transport. This transport map will be usefull in a minimization problem that we will define later on. More details on this transport map can be find in [2].</p>
+<p>First of all, we need to define the <strong>increasing rearrangement formula</strong>: Given <span class="math notranslate nohighlight">\(\mu, \nu \in \mathbb{P}(R^d)\)</span> with cumulative distribution functions <span class="math notranslate nohighlight">\(F\)</span> resp. <span class="math notranslate nohighlight">\(G\)</span> and their right continuous inverses <span class="math notranslate nohighlight">\(F^{-1}\)</span> resp <span class="math notranslate nohighlight">\(G^{-1}\)</span>, we define :</p>
+<div class="math notranslate nohighlight">
+\[T = G^{-1}\circ F\]</div>
+<p>when <span class="math notranslate nohighlight">\(\mu\)</span> is atomless, we have <span class="math notranslate nohighlight">\(T_\#\mu = \nu\)</span> and it’s an increasing transport map.</p>
+<p>Now, we can define and construct the Knothe-Rosenblatt rearrangement: By the increasing formula, we define <span class="math notranslate nohighlight">\(y_1 = T_1(x_1)\)</span> by the increasing rearrangement formula of <span class="math notranslate nohighlight">\(\mu_1\)</span> into <span class="math notranslate nohighlight">\(\mu_1\)</span>. Then, for <span class="math notranslate nohighlight">\(1 &lt; i \leq d\)</span>, we take the marginal on the first <span class="math notranslate nohighlight">\(i\)</span> variables and use the conditional probability formula:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+\mu_i(dx_1 \cdots dx_i) &amp;= \mu_{i-1}(dx_1 \cdots dx_{i-1})\mu_i(dx_i|x_1,\cdots,x_{i-1})\\
+\nu_i(dy_1 \cdots dy_i) &amp;= \nu_{i-1}(dy_1 \cdots dy_{i-1})\nu_i(dy_i|y_1,\cdots,y_{i-1}).
+\end{aligned}\end{split}\]</div>
+<p>Next, we set <span class="math notranslate nohighlight">\(y_1=T_1(x_1)\)</span> and define <span class="math notranslate nohighlight">\(y_i=T_i(x_i;x_1,\cdots,x_{i-1})\)</span> by the increasing rearrangement formula of <span class="math notranslate nohighlight">\(\mu_i(dx_i|x_1,\cdots,x_{i-1})\)</span> into <span class="math notranslate nohighlight">\(\nu_i(dy_i|y_1,\cdots,y_{i-1})\)</span>. Finally, we set <span class="math notranslate nohighlight">\(T(x) = (y_1,\cdots,y_n)\)</span> to have the Knothe-Rosenblatt rearrangement.</p>
+<p>By construction of the Knothe transport <span class="math notranslate nohighlight">\(T\)</span>, we have that <span class="math notranslate nohighlight">\(T_\#\mu = \nu\)</span> and its Jacobian is upper triangular with positive entries on the diagonal.</p>
+<p>[2] Santambrogio F. Optimal Transport for Applied Mathematicians. Calculus of Vari- ations,PDEs, and Modeling. isbn: 9783319208282.</p>
+</section>
+</section>
+<section id="Transport-map-MCMC">
+<h1>Transport map MCMC<a class="headerlink" href="#Transport-map-MCMC" title="Permalink to this heading"></a></h1>
+<section id="MCMC-with-a-fixed-transport-map">
+<h2>MCMC with a fixed transport map<a class="headerlink" href="#MCMC-with-a-fixed-transport-map" title="Permalink to this heading"></a></h2>
+<p>Here, we suppose that with have a lower triangular transport map <span class="math notranslate nohighlight">\(S\)</span> such that <span class="math notranslate nohighlight">\(S_\#\nu \simeq \mu\)</span>, with the reference measure <span class="math notranslate nohighlight">\(\mu\)</span> being a standard Gaussian. We will use this map in order to make a modified version of Metropolis-Hastings using this transport map.</p>
+<p>The transport map makes it straightforward to evaluate this map, as <span class="math notranslate nohighlight">\(\theta' = S^{-1}(r')\)</span> and <span class="math notranslate nohighlight">\(\theta^{(k)} = S^{-1}(\theta^{(k)})\)</span>. With the transport map, the loop in the Metropolis-Hastings algorithm proceeds as follows:</p>
+<p><strong>Fixed transport map MCMC:</strong></p>
+<p>For <span class="math notranslate nohighlight">\(k = 1\)</span> to <span class="math notranslate nohighlight">\(K-1\)</span>:</p>
+<ul class="simple">
+<li><p>Compute the reference state: <span class="math notranslate nohighlight">\(r^{(k)} = S(\theta^{(k)})\)</span></p></li>
+<li><p>Sample from the reference proposal: <span class="math notranslate nohighlight">\(r' \sim q_r(\cdot | r^{(k)})\)</span></p></li>
+<li><p>State Compute the target proposal: <span class="math notranslate nohighlight">\(\theta' = S^{-1}(r')\)</span></p></li>
+<li><p>State Accept the new proposal with probability <span class="math notranslate nohighlight">\(\alpha\)</span></p></li>
+</ul>
+<p>If <em>the proposal is accepted</em>: - <span class="math notranslate nohighlight">\(\theta^{(k+1)} \leftarrow \theta'\)</span></p>
+<p>Else:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\theta^{(k+1)} \leftarrow \theta^{(k)}\)</span></p></li>
+</ul>
+<p>The lower triangular structure of our map <span class="math notranslate nohighlight">\(S\)</span> facilitates computation of its inverse. Inverting <span class="math notranslate nohighlight">\(S\)</span> involves solving <span class="math notranslate nohighlight">\(d\)</span> one-dimensional inversion problems. For instance, each of these problems can be efficiently solved using Newton’s algorithm.</p>
+</section>
+<section id="Adaptative-transport-map-MCMC">
+<h2>Adaptative transport map MCMC<a class="headerlink" href="#Adaptative-transport-map-MCMC" title="Permalink to this heading"></a></h2>
+<p>Even though presenting MCMC with a fixed transport map was revelant in order to understand the main idea of this modified Metropolis Hastings algorithm, we don’t have such a map in practice. Indeed, to construct a map <span class="math notranslate nohighlight">\(T\)</span> such that <span class="math notranslate nohighlight">\(T_\#\nu \simeq \mu\)</span> we need in practive <span class="math notranslate nohighlight">\((\theta^{(1)}, \cdots, \theta^{(K)})\)</span> samples from our target distribution <span class="math notranslate nohighlight">\(\nu\)</span>. To do so, the algorithm proposed is adapting the transport map <span class="math notranslate nohighlight">\(T\)</span> when new samples
+<span class="math notranslate nohighlight">\((\theta'^{(1)}, \cdots, \theta'^{(K)})\)</span> are given. We can translate the algorithm as followed:</p>
+<p><strong>Adptative transport map MCMC:</strong></p>
+<p><span class="math notranslate nohighlight">\(T_0 \gets \text{Identity}\)</span></p>
+<p>Generate initial samples using <span class="math notranslate nohighlight">\(T_0\)</span> For <span class="math notranslate nohighlight">\(k \gets 1\)</span> to <span class="math notranslate nohighlight">\(N_{loops}\)</span> - FixedTransportMCMC(<span class="math notranslate nohighlight">\(T_K\)</span>) - generate new samples using the fixed transport map and accept/reject criteria - State estimate a new transport map <span class="math notranslate nohighlight">\(T_{K+1}\)</span> using the new samples</p>
+<p>Return: samples</p>
+</section>
+<section id="Optimisation-problem">
+<h2>Optimisation problem<a class="headerlink" href="#Optimisation-problem" title="Permalink to this heading"></a></h2>
+<p>Having explored the adaptation of the Metropolis-Hastings algorithm to incorporate a transport map, we now turn to the construction of such a map. To begin, we define the set over which we will operate to approximate a transport map.</p>
+<p>A Borel map <span class="math notranslate nohighlight">\(T: \mathbb{R}^d \to \mathbb{R}^d\)</span> is said to be lower triangular if: <span class="math notranslate nohighlight">\(T(x) = [T_1(x_1), T_2(x_1,x_2), \dots, T_d(x_1, \dots, x_d)]^T\)</span>.</p>
+<p>We set: <span class="math notranslate nohighlight">\(\mathcal{T}_{\triangle} := \left\{ T \text{ lower triangular, strictly increasing with } T \text{ and differentiable everywhere} \right\}\)</span>.</p>
+<p>While the Knothe-Rosenblatt rearrangement belongs to <span class="math notranslate nohighlight">\(\mathcal{T}_\triangle \cap \mathcal{T}(\mu, \nu)\)</span>, it can be computationally challenging to work with. Instead, we aim to approximate the pushforward equality <span class="math notranslate nohighlight">\(T\in \mathcal{T}_{\triangle}\)</span> and <span class="math notranslate nohighlight">\(T_\#\mu \simeq \nu\)</span>. To accomplish this, we leverage the Kullback-Leibler divergence to quantify the similarity between our two probability densities and formulate a corresponding minimization problem:</p>
+<div class="math notranslate nohighlight">
+\[\displaystyle \underset{T \in \mathcal{T}_\triangle(\mu) }{\text{arg min }} D_{KL}(\nu||T_\#\mu)\]</div>
+<p>Thanks to the Knothe transport, we know that the minimum of this Kullback-Leibler divergence is <span class="math notranslate nohighlight">\(0\)</span> on this set.</p>
+<p>Given that <span class="math notranslate nohighlight">\(T_\#\mu = \rho \circ T^{-1}(x) \det |\nabla T^{-1}(x)|\)</span> this is equivalent to</p>
+<div class="math notranslate nohighlight">
+\[\displaystyle \underset{T \in \mathcal{T}_\triangle(\mu) }{\text{arg min } }\mathbb{E}_\nu\left[-\log \rho\circ T^{-1}(x) - \log|\det \nabla T^{-1}(x)| \right]\]</div>
+<p><strong>Remark:</strong> in what follows, we will replace <span class="math notranslate nohighlight">\(T^{-1}\)</span> with <span class="math notranslate nohighlight">\(S\)</span>. Usually, we refer as <span class="math notranslate nohighlight">\(T\)</span> a if it is in <span class="math notranslate nohighlight">\(\mathcal{T}(\mu, \nu)\)</span>, and <span class="math notranslate nohighlight">\(S\)</span> if it is in <span class="math notranslate nohighlight">\(\mathcal{T}(\nu, \mu)\)</span>. It doesn’t change the problem since the inverse is unique and it’s more readable.</p>
+<p>Making the optimization problem easier} Now that we have set our optimization problem, we would like to make it computationnaly easier to solve. Suppose that we have <span class="math notranslate nohighlight">\((x^{(1)}, \dots , x^{(K)})\)</span> <span class="math notranslate nohighlight">\(\overset{\text{iid}}{\sim} \mu\)</span>, we can approximate our problem:</p>
+<div class="math notranslate nohighlight">
+\[\displaystyle \underset{S \in \mathcal{T}_\triangle(\mu) }{\arg \min} \frac 1K\underset{k=1}{\overset{K}{\sum}}\left[-\log \rho\circ S(x^{(k)}) - \log|\det \nabla S(x^{(k)})|  \right]\]</div>
+<p>Then, by choosing <span class="math notranslate nohighlight">\(\mu \sim \mathcal{N}(0, I)\)</span> and knowing that <span class="math notranslate nohighlight">\(T \in \mathcal{T}_\nabla\)</span>, we have an easy formula for <span class="math notranslate nohighlight">\(\log \rho(x)\)</span> and the Jacobian that leads to:</p>
+<div class="math notranslate nohighlight">
+\[\displaystyle \underset{S \in \mathcal{T}_\triangle(\mu) }{\arg \min}\left [ \underset{i=1}{\overset{n}\sum} \underset{k=1}{\overset{K}{\sum}}\frac 12 (S_i(x^{(k)})^2 - \log \frac{\partial S_i}{\partial x_i}(x^{(k)})\right ]\]</div>
+<p>In order to make each <span class="math notranslate nohighlight">\(S_i\)</span> inversible, we need to assure that for all <span class="math notranslate nohighlight">\(k\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\displaystyle \frac{\partial S_i(\theta^{(k)})}{\partial \theta_i} &gt; 0\]</div>
+<p>We add this constraint into <span class="math notranslate nohighlight">\(\mathcal{T}_\triangle\)</span> without changing the space name. We will not discuss more details on the conditions for the map <span class="math notranslate nohighlight">\(S\)</span> that are necessary to proove the ergodicity of the algorithm proposed in the article. Nevertheless, we can notice that the conditions on the map <span class="math notranslate nohighlight">\(S\)</span> and the formulation above lead to a seprable optimisation problem over the dimension and that each problem is convex on a closed feasible domain. We refer to the article for more
+details.</p>
+<section id="Map-parametrization">
+<h3>Map parametrization<a class="headerlink" href="#Map-parametrization" title="Permalink to this heading"></a></h3>
+<p>With equation (7), we have a separable optimization problem. To solve it, the article proposes to reparametrize our maps. For example, we can reparametrize each map <span class="math notranslate nohighlight">\(S_i\)</span> with a multivariate polynomial expension.</p>
+<p>As an example, lets take <span class="math notranslate nohighlight">\(\mu, \nu \in \mathbb{P}(\mathbb{R}^2)\)</span> and the subsace <span class="math notranslate nohighlight">\(\mathbb{R}_2[X_1,X_2]\)</span> of polynomials of <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span> with a degree lower or equal to two. Each <span class="math notranslate nohighlight">\(P \in \mathbb{R}_2[X_1,X_2]\)</span> is of the form:</p>
+<div class="math notranslate nohighlight">
+\[P(X_1, X_2) = a_1X_1^2 + a_2X_2^2 + b_1X_1 + b_2X_2 + cX_1X_2 + d\]</div>
+<p>with <span class="math notranslate nohighlight">\(a_1, a_2, b_1, b_2, c, d \in \mathbb{R}\)</span>. Each polynomial of <span class="math notranslate nohighlight">\(\mathbb{R}_2[X_1,X_2]\)</span> can be identified with its coefficient <span class="math notranslate nohighlight">\(\gamma = (a_1, a_2, b_1, b_2, c, d)\)</span>.</p>
+<p>With this family of functions, we have;</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+    S_{\gamma_1,1}(X_1, X_2) &amp;= a_{1,1}X_1^2 + b_{1,1}X_1 + c_1X_1X_2 +d\\
+    S_{\gamma_2,2}(X_1, X_2) &amp;= a_{1,2}X_1^2 + a_{2,2}X_2^2 + b_{1,2}X_1 + b_{2,2}X_2 + c_2X_1X_2 + d_2
+\end{aligned}\end{split}\]</div>
+<p>Where <span class="math notranslate nohighlight">\(\gamma_1 = (a_{1,1}, b_{1,1}, c_1)\)</span> and <span class="math notranslate nohighlight">\(\gamma_2 = (a_{1,2},a_{2,2},b_{1,2},b_{2,2},c_2)\)</span>. With this reparametrization, the optimization problem (7) becomes:</p>
+<div class="math notranslate nohighlight">
+\[\begin{aligned}
+    \displaystyle \underset{\gamma_1, \gamma_2 }{\arg \min}\left [ \underset{i=1}{\overset{n}\sum} \underset{k=1}{\overset{K}{\sum}}\frac 12 (S_{i,\gamma_i}(x^{(k)})^2 - \log \frac{\partial S_{i, \gamma_i}}{\partial x_i}(x^{(k)})\right ]
+\end{aligned}\]</div>
+</section>
+<section id="Code-of-the-transport-map">
+<h3>Code of the transport map<a class="headerlink" href="#Code-of-the-transport-map" title="Permalink to this heading"></a></h3>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">minimize</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">multivariate_normal</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Here, we define the transport map, parametrized as 2d multinomalis T1 and T2</span>
+<span class="c1"># We also define the cost function C1 and C2, which are the KL divergence approximation between T1 and T2 and N(0,1)</span>
+<span class="c1"># We also define the inverse of T1 and T2, which is T_inv</span>
+
+<span class="k">def</span> <span class="nf">T1</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    parameters:</span>
+<span class="sd">    params: coefficients of the polynomial T1</span>
+<span class="sd">    X: vector of size 2</span>
+
+<span class="sd">    returns:</span>
+<span class="sd">    T1(X[0]) = a * X[0]**2 + b * X[0] + c</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">params</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>  <span class="c1"># 2D vector</span>
+        <span class="k">return</span> <span class="n">a</span> <span class="o">*</span> <span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">b</span> <span class="o">*</span> <span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">c</span>
+    <span class="k">elif</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>  <span class="c1"># n*2 matrix</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">a</span> <span class="o">*</span> <span class="n">X</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">b</span> <span class="o">*</span> <span class="n">X</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">c</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid input shape for X&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">T2</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    parameters:</span>
+<span class="sd">    params: coefficients of the polynomial T2</span>
+<span class="sd">    X: vector of size 2</span>
+
+
+<span class="sd">    returns:</span>
+<span class="sd">    T2(X[0], X[1])</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">a1</span><span class="p">,</span> <span class="n">a2</span><span class="p">,</span> <span class="n">b1</span><span class="p">,</span> <span class="n">b2</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">params</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">a1</span> <span class="o">*</span> <span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">a2</span> <span class="o">*</span> <span class="n">X</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">b1</span> <span class="o">*</span> <span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">b2</span> <span class="o">*</span> <span class="n">X</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">c</span>
+    <span class="k">elif</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">a1</span> <span class="o">*</span> <span class="n">X</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">a2</span> <span class="o">*</span> <span class="n">X</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">b1</span> <span class="o">*</span> <span class="n">X</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">b2</span> <span class="o">*</span> <span class="n">X</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">c</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid input shape for X&quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">partial_T1</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    parameters:</span>
+<span class="sd">    params: coefficients of the polynomial T1</span>
+<span class="sd">    X: vector of size 2</span>
+
+<span class="sd">    returns:</span>
+<span class="sd">    \partial T1(X[0]) / \partial X_1</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">params</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">a</span> <span class="o">*</span> <span class="n">X</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">b</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span><span class="mi">0</span><span class="p">])))</span>
+<span class="k">def</span> <span class="nf">partial_T2</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    parameters:</span>
+<span class="sd">    params: coefficients of the polynomial T1</span>
+<span class="sd">    X: vector of size 2</span>
+
+<span class="sd">    returns:</span>
+<span class="sd">    \partial T1(X[0]) / \partial X_2</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">a1</span><span class="p">,</span> <span class="n">a2</span><span class="p">,</span> <span class="n">b1</span><span class="p">,</span> <span class="n">b2</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">params</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">a2</span> <span class="o">*</span> <span class="n">X</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">b2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span><span class="mi">1</span><span class="p">])))</span>
+
+<span class="k">def</span> <span class="nf">C1</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    parameters:</span>
+<span class="sd">    params: coefficients of the polynomial T1</span>
+<span class="sd">    X: vector of size 2</span>
+
+<span class="sd">    returns:</span>
+<span class="sd">    cost of the approximation KL between T1 and N(0,1) with samples X</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">T1</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">partial_T1</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">X</span><span class="p">)))</span>
+
+<span class="k">def</span> <span class="nf">C2</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    parameters:</span>
+<span class="sd">    params: coefficients of the polynomial T1</span>
+<span class="sd">    X: vector of size 2</span>
+
+<span class="sd">    returns:</span>
+<span class="sd">    cost of the approximation KL between T1 and N(0,1) with samples X</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">T2</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">partial_T2</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">X</span><span class="p">)))</span>
+
+<span class="k">def</span> <span class="nf">min_max</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    parameters:</span>
+<span class="sd">    X: array of size n x 2</span>
+
+<span class="sd">    returns:</span>
+<span class="sd">    bounds: the min and max of X_1 and X_2</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">max_X_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])</span>
+    <span class="n">min_X_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])</span>
+    <span class="n">max_X_2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])</span>
+    <span class="n">min_X_2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">min_X_1</span><span class="p">,</span> <span class="n">max_X_1</span><span class="p">,</span> <span class="n">min_X_2</span><span class="p">,</span> <span class="n">max_X_2</span><span class="p">])</span>
+
+<span class="k">def</span> <span class="nf">T_inv</span><span class="p">(</span><span class="n">coeff_T1</span><span class="p">,</span> <span class="n">coeff_T2</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">bounds</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    parameters:</span>
+<span class="sd">    coeff_T1: coefficients of T1</span>
+<span class="sd">    coeff_T2: coefficients of T2</span>
+<span class="sd">    y: output of T1 and T2</span>
+<span class="sd">    bounds: bounds of the domain of T1 and T2</span>
+
+<span class="sd">    returns:</span>
+<span class="sd">    X: inverse of T1 and T2, vector of size 2</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1">#root for x1:</span>
+    <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">coeff_T1</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">c</span> <span class="o">-</span> <span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">roots</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">roots</span><span class="p">([</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">])</span>
+    <span class="n">root_1</span> <span class="o">=</span> <span class="n">roots</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="c1"># Check if roots are real</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isreal</span><span class="p">(</span><span class="n">roots</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Roots are not real&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">roots</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">or</span> <span class="n">roots</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="c1"># if root_1 is not in the domain</span>
+        <span class="n">root_1</span> <span class="o">=</span> <span class="n">roots</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="c1">#root for x2:</span>
+
+    <span class="n">a1</span><span class="p">,</span> <span class="n">a2</span><span class="p">,</span> <span class="n">b1</span><span class="p">,</span> <span class="n">b2</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">coeff_T2</span>
+
+    <span class="n">a_0</span> <span class="o">=</span> <span class="n">a2</span>
+    <span class="n">b_0</span> <span class="o">=</span> <span class="n">b2</span>
+    <span class="n">c_0</span> <span class="o">=</span> <span class="n">a1</span> <span class="o">*</span> <span class="n">root_1</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">b1</span> <span class="o">*</span> <span class="n">root_1</span> <span class="o">+</span> <span class="n">c</span> <span class="o">-</span> <span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="n">roots</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">roots</span><span class="p">([</span><span class="n">a_0</span><span class="p">,</span> <span class="n">b_0</span><span class="p">,</span> <span class="n">c_0</span><span class="p">])</span>
+    <span class="c1"># Check if roots are real</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isreal</span><span class="p">(</span><span class="n">roots</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Roots are not real&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">roots</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="ow">or</span> <span class="n">roots</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="c1"># if roots[0] is not in the domain</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">root_1</span><span class="p">,</span> <span class="n">roots</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">root_1</span><span class="p">,</span> <span class="n">roots</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
+
+<span class="k">def</span> <span class="nf">min_max</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    parameters:</span>
+<span class="sd">    X: array of size n x 2</span>
+
+<span class="sd">    returns:</span>
+<span class="sd">    bounds: the min and max of X_1 and X_2</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">max_X_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])</span>
+    <span class="n">min_X_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])</span>
+    <span class="n">max_X_2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])</span>
+    <span class="n">min_X_2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">min_X_1</span><span class="p">,</span> <span class="n">max_X_1</span><span class="p">,</span> <span class="n">min_X_2</span><span class="p">,</span> <span class="n">max_X_2</span><span class="p">])</span>
+
+<span class="k">def</span> <span class="nf">optimize_parameters</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    parameters:</span>
+<span class="sd">    X: array of size n x 2</span>
+
+<span class="sd">    returns:</span>
+<span class="sd">    coeff_T1: coefficients of T1 optimized wrt to the KL divergence with N(0,I_2)</span>
+<span class="sd">    coeff_T2: coefficients of T2 optimized wrt to the KL divergence with N(0,I_2)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">bounds</span> <span class="o">=</span> <span class="n">min_max</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+    <span class="c1">#initial guess:</span>
+    <span class="n">params0_c1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">params0_c2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+
+    <span class="c1">#counstraints:</span>
+
+    <span class="c1">#getting the bounds as global variables:</span>
+    <span class="n">min_X1</span><span class="p">,</span> <span class="n">max_X1</span><span class="p">,</span> <span class="n">min_X2</span><span class="p">,</span> <span class="n">max_X2</span> <span class="o">=</span> <span class="n">min_max</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+    <span class="c1">#def of the constraints:</span>
+    <span class="c1">#for T1:</span>
+    <span class="k">def</span> <span class="nf">constraint1</span><span class="p">(</span><span class="n">params</span><span class="p">):</span>
+        <span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span> <span class="o">=</span> <span class="n">params</span>
+        <span class="k">return</span> <span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="o">*</span><span class="n">min_X1</span> <span class="o">+</span> <span class="n">b</span> <span class="o">-</span><span class="mf">1e-5</span>
+    <span class="k">def</span> <span class="nf">constraint2</span><span class="p">(</span><span class="n">params</span><span class="p">):</span>
+        <span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span> <span class="o">=</span> <span class="n">params</span>
+        <span class="k">return</span> <span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="o">*</span><span class="n">max_X1</span> <span class="o">+</span> <span class="n">b</span> <span class="o">-</span><span class="mf">1e-5</span>
+
+    <span class="c1">#for T2:</span>
+    <span class="k">def</span> <span class="nf">constraint3</span><span class="p">(</span><span class="n">params</span><span class="p">):</span>
+        <span class="n">a1</span><span class="p">,</span><span class="n">a2</span><span class="p">,</span><span class="n">b1</span><span class="p">,</span><span class="n">b2</span><span class="p">,</span><span class="n">c</span> <span class="o">=</span> <span class="n">params</span>
+        <span class="k">return</span> <span class="mi">2</span><span class="o">*</span><span class="n">a2</span><span class="o">*</span><span class="n">min_X2</span> <span class="o">+</span> <span class="n">b2</span> <span class="o">-</span><span class="mf">1e-5</span>
+    <span class="k">def</span> <span class="nf">constraint4</span><span class="p">(</span><span class="n">params</span><span class="p">):</span>
+        <span class="n">a1</span><span class="p">,</span><span class="n">a2</span><span class="p">,</span><span class="n">b1</span><span class="p">,</span><span class="n">b2</span><span class="p">,</span><span class="n">c</span> <span class="o">=</span> <span class="n">params</span>
+        <span class="k">return</span> <span class="mi">2</span><span class="o">*</span><span class="n">a2</span><span class="o">*</span><span class="n">max_X2</span> <span class="o">+</span> <span class="n">b2</span> <span class="o">-</span><span class="mf">1e-5</span>
+
+
+    <span class="n">cons1</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;ineq&#39;</span><span class="p">,</span> <span class="s1">&#39;fun&#39;</span><span class="p">:</span> <span class="n">constraint1</span><span class="p">}</span>
+    <span class="n">cons2</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;ineq&#39;</span><span class="p">,</span> <span class="s1">&#39;fun&#39;</span><span class="p">:</span> <span class="n">constraint2</span><span class="p">}</span>
+    <span class="n">cons3</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;ineq&#39;</span><span class="p">,</span> <span class="s1">&#39;fun&#39;</span><span class="p">:</span> <span class="n">constraint3</span><span class="p">}</span>
+    <span class="n">cons4</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;ineq&#39;</span><span class="p">,</span> <span class="s1">&#39;fun&#39;</span><span class="p">:</span> <span class="n">constraint4</span><span class="p">}</span>
+
+    <span class="n">constraints_c1</span> <span class="o">=</span> <span class="p">[</span><span class="n">cons1</span><span class="p">,</span> <span class="n">cons2</span><span class="p">]</span>
+    <span class="n">constraints_c2</span> <span class="o">=</span> <span class="p">[</span><span class="n">cons3</span><span class="p">,</span> <span class="n">cons4</span><span class="p">]</span>  <span class="c1"># Fixed the variable name here</span>
+
+    <span class="c1"># Optimization</span>
+    <span class="n">result_c1</span> <span class="o">=</span> <span class="n">minimize</span><span class="p">(</span><span class="n">C1</span><span class="p">,</span> <span class="n">params0_c1</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">X</span><span class="p">,),</span> <span class="n">constraints</span><span class="o">=</span><span class="n">constraints_c1</span><span class="p">)</span>
+    <span class="n">result_c2</span> <span class="o">=</span> <span class="n">minimize</span><span class="p">(</span><span class="n">C2</span><span class="p">,</span> <span class="n">params0_c2</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">X</span><span class="p">,),</span> <span class="n">constraints</span><span class="o">=</span><span class="n">constraints_c2</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">result_c1</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">result_c2</span><span class="o">.</span><span class="n">x</span>
+
+<span class="k">def</span> <span class="nf">generate_2d_gaussian_mixture</span><span class="p">(</span><span class="n">num_components</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="n">n_samples</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1000</span><span class="p">,</span><span class="mi">1000</span><span class="p">,</span><span class="mi">1000</span><span class="p">]):</span>
+    <span class="c1">#fixed for the comments to make sense</span>
+    <span class="n">means</span> <span class="o">=</span> <span class="p">[[</span> <span class="mf">1.78304649</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.39014005</span><span class="p">],</span> <span class="p">[</span> <span class="mf">5.72589728</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.1879583</span> <span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mf">5.09949788</span><span class="p">,</span>  <span class="mf">5.78601833</span><span class="p">]]</span>
+    <span class="n">covs</span> <span class="o">=</span> <span class="p">[[[</span><span class="mf">0.92179426</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.70733252</span><span class="p">]],</span>
+         <span class="p">[[</span><span class="mf">1.76444733</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">1.65310297</span><span class="p">]],</span>
+         <span class="p">[[</span><span class="mf">1.45830941</span><span class="p">,</span> <span class="mi">0</span><span class="p">],[</span><span class="mf">0.</span>        <span class="p">,</span> <span class="mf">1.48383502</span><span class="p">]]]</span>
+    <span class="n">samples</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">multivariate_normal</span><span class="p">(</span><span class="n">mean</span><span class="p">,</span> <span class="n">cov</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span> <span class="k">for</span> <span class="n">mean</span><span class="p">,</span> <span class="n">cov</span><span class="p">,</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">means</span><span class="p">,</span> <span class="n">covs</span><span class="p">,</span> <span class="n">n_samples</span><span class="p">)]</span>
+    <span class="n">gaussian_mixture</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">gaussian_mixture</span>
+
+<span class="k">def</span> <span class="nf">plot_mixture</span><span class="p">(</span><span class="n">mixture</span><span class="p">,</span> <span class="n">title</span> <span class="o">=</span> <span class="s2">&quot;Gaussian mixture&quot;</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">mixture</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">mixture</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;X-axis&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Y-axis&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+
+<span class="k">def</span> <span class="nf">plot_histograms</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">title</span> <span class="o">=</span> <span class="s2">&quot;Histograms of Components&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    data : samples of the distribution</span>
+
+<span class="sd">    returns:</span>
+<span class="sd">    Plots histograms of the two components of the data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">component_1</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="n">component_2</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">ax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">component_1</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.75</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Component 1&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">component_2</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.75</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Component 2&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Value&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Frequency&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">plot_density_approx</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Kernel Density Estimation of Components&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    data : samples of the distribution</span>
+
+<span class="sd">    returns:</span>
+<span class="sd">    Plots KDEs of the two components of the data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">component_1</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="n">component_2</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">ax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+
+    <span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span><span class="n">component_1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Component 1&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span><span class="n">component_2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Component 2&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Value&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Density&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+<br/><br/></pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#parameters for our random gaussian mixture:</span>
+<span class="n">num_components</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">n_samples</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">1000</span><span class="p">]</span>
+<span class="n">mean_range</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">cov_range</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="c1">#generation of our random gaussian mixture:</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">generate_2d_gaussian_mixture</span><span class="p">(</span><span class="n">num_components</span><span class="p">,</span> <span class="n">n_samples</span><span class="p">)</span>
+
+<span class="c1">#find the best triangular transformation with degree 2 polynomials:</span>
+<span class="n">coeff_T1</span><span class="p">,</span> <span class="n">coeff_T2</span> <span class="o">=</span> <span class="n">optimize_parameters</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">T1</span><span class="p">(</span><span class="n">coeff_T1</span><span class="p">,</span> <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">,:]),</span> <span class="n">T2</span><span class="p">(</span><span class="n">coeff_T2</span><span class="p">,</span> <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">,:])]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">))])</span>
+
+<span class="c1"># Create the figure with histograms and densities</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">&quot;Histograms and Density Estimations&quot;</span><span class="p">)</span>
+
+<span class="n">ax1</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plot_histograms</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Histograms of X by component&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax1</span><span class="p">)</span>
+
+<span class="n">ax2</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plot_histograms</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Histograms of T(X) by component&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax2</span><span class="p">)</span>
+
+<span class="n">ax3</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">plot_density_approx</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Kernel Density Estimation of Components for X&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax3</span><span class="p">)</span>
+
+<span class="n">ax4</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="n">plot_density_approx</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Kernel Density Estimation of Components for T(X)&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax4</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">hspace</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/transport_mcmc_7_0.png" src="_images/transport_mcmc_7_0.png" />
+</div>
+</div>
+<p>Just above is an example with a 2D gaussian mixture</p>
+<p>The transformation resulted in a density that is much more similar to a Gaussian distribution. Specifically, the second component changed from a trimodal to unimodal distribution, while the variability in the first component decreased. Although a higher degree polynomial could provide a more accurate approximation, the partial derivative constraints restrict the <span class="math notranslate nohighlight">\(T_1\)</span> function to almost linear behavior, even with a degree 3 polynomial.</p>
+<p>It is clear that we can extend this example to higher dimensions by increasing the maximum degree of our multivariate polynomials or by using alternative bases such as orthogonal polynomials like Hermite or Legendre polynomials. An optimal choice of basis would be one that results in linear <span class="math notranslate nohighlight">\(S_i\)</span> maps with respect to the expansion coefficients <span class="math notranslate nohighlight">\(\gamma_i\)</span>, as recommended in the paper. This property improves the efficiency of solving the minimization problem (1), further details can be
+found in the article.</p>
+</section>
+</section>
+</section>
+<section id="Experimenting-the-algorithm">
+<h1>Experimenting the algorithm<a class="headerlink" href="#Experimenting-the-algorithm" title="Permalink to this heading"></a></h1>
+<section id="id1">
+<h2>Transport map<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h2>
+<p>In our experiments, we choosed to approximate our transport map with 2 degree polynomials like in section 3.3.2. We will illustrate here the modification applied to a 2D mixture of three gaussians with a transport map minimizing (11).</p>
+<p>Our focus now is to examine the practical effectiveness of accelerating MCMC using transport maps. Our approach involves utilizing the Metropolis-Hastings algorithm and comparing it with the transport map variant. It’s worth noting that transport maps can also be applied to other MCMC algorithms, such as Langevin Monte Carlo, making it a versatile tool.</p>
+<dl class="simple">
+<dt>Our example target distribution is the following two dimension gaussian mixture: :nbsphinx-math:<a href="#id2"><span class="problematic" id="id3">`</span></a>begin{align}</dt><dd><p>frac13 mathcal{N}([-3,0], I_2) + frac13 mathcal{N}([3,0], I_2) + frac13 mathcal{N}([0,3], I_2)</p>
+</dd>
+</dl>
+<p>end{align}` Although the target distribution is not particularly difficult, we will observe that the MH algorithm struggles to sample from it. Additionally, using a 2D example is advantageous for visualizing the problem, as increasing the number of dimensions would complicate our understanding.</p>
+<p>For instance, here is what this target distribution looks like:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">sample_gaussian_mixture</span><span class="p">(</span><span class="n">num_samples</span><span class="p">,</span> <span class="n">means</span><span class="p">,</span> <span class="n">covariances</span><span class="p">,</span> <span class="n">weights</span><span class="p">):</span>
+    <span class="n">num_components</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span>
+    <span class="n">samples</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_samples</span><span class="p">):</span>
+        <span class="n">component</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">num_components</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">weights</span><span class="p">)</span>
+        <span class="n">sample</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">multivariate_normal</span><span class="p">(</span><span class="n">means</span><span class="p">[</span><span class="n">component</span><span class="p">],</span> <span class="n">covariances</span><span class="p">[</span><span class="n">component</span><span class="p">])</span>
+        <span class="n">samples</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">samples</span><span class="p">)</span>
+
+
+<span class="n">means</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">])]</span>
+<span class="n">covariances</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])]</span>
+<span class="n">weights</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">]</span>
+
+<span class="c1"># Sample points from the Gaussian mixture</span>
+<span class="n">num_samples</span> <span class="o">=</span> <span class="mi">10000</span>
+<span class="n">samples</span> <span class="o">=</span> <span class="n">sample_gaussian_mixture</span><span class="p">(</span><span class="n">num_samples</span><span class="p">,</span> <span class="n">means</span><span class="p">,</span> <span class="n">covariances</span><span class="p">,</span> <span class="n">weights</span><span class="p">)</span>
+
+<span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span><span class="o">-</span><span class="mi">6</span><span class="p">:</span><span class="mi">6</span><span class="p">:</span><span class="mf">.01</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">:</span><span class="mi">6</span><span class="p">:</span><span class="mf">.01</span><span class="p">]</span>
+<span class="n">pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span> <span class="o">+</span> <span class="p">(</span><span class="mi">2</span><span class="p">,))</span>
+<span class="n">pos</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span>
+<span class="n">pos</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">y</span>
+
+<span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">mean</span><span class="p">,</span> <span class="n">cov</span><span class="p">,</span> <span class="n">weight</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">means</span><span class="p">,</span> <span class="n">covariances</span><span class="p">,</span> <span class="n">weights</span><span class="p">):</span>
+    <span class="n">z</span> <span class="o">+=</span> <span class="n">weight</span> <span class="o">*</span> <span class="n">multivariate_normal</span><span class="p">(</span><span class="n">mean</span><span class="p">,</span> <span class="n">cov</span><span class="p">)</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">pos</span><span class="p">)</span>
+
+<span class="n">levels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">z</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">z</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="mi">15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="n">levels</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span> <span class="s1">&#39;magma&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Y&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Density&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/transport_mcmc_11_0.png" src="_images/transport_mcmc_11_0.png" />
+</div>
+</div>
+<p>We can also have alook on the map transformation used to make the target distribution closer to our source distriubtion, using 1000 samples from it tu have <span class="math notranslate nohighlight">\(T_\#\nu \simeq \mu\)</span> for the KL divergence.</p>
+</section>
+</section>
+<section id="Comparing-the-algorithms">
+<h1>Comparing the algorithms<a class="headerlink" href="#Comparing-the-algorithms" title="Permalink to this heading"></a></h1>
+<p>In our experiments, we choosed to approximate our transport map with 2 degree polynomials like in section 3.3.2. We will illustrate here the modification applied to a 2D mixture of three gaussians with a transport map minimizing (11).</p>
+<p>Our focus now is to examine the practical effectiveness of accelerating MCMC using transport maps. Our approach involves utilizing the Metropolis-Hastings algorithm and comparing it with the transport map variant. It’s worth noting that transport maps can also be applied to other MCMC algorithms, such as Langevin Monte Carlo, making it a versatile tool.</p>
+<dl class="simple">
+<dt>Our example target distribution is the following two dimension gaussian mixture: :nbsphinx-math:<a href="#id4"><span class="problematic" id="id5">`</span></a>begin{align}</dt><dd><p>frac13 mathcal{N}([-3,0], I_2) + frac13 mathcal{N}([3,0], I_2) + frac13 mathcal{N}([0,3], I_2)</p>
+</dd>
+</dl>
+<p>end{align}` Although the target distribution is not particularly difficult, we will observe that the MH algorithm struggles to sample from it. Additionally, using a 2D example is advantageous for visualizing the problem, as increasing the number of dimensions would complicate our understanding.</p>
+<section id="MH-algorithm">
+<h2>MH algorithm<a class="headerlink" href="#MH-algorithm" title="Permalink to this heading"></a></h2>
+<p>Even though this toy example is not really complex, the usual MH algorithms isn’t really. With 1000 samples, we can see that MH approximates really poorly our distribution.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[66]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## MH algorithm functions</span>
+<span class="k">def</span> <span class="nf">multivariate_gaussian_pdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">mean</span><span class="p">,</span> <span class="n">cov</span><span class="p">):</span>
+    <span class="c1"># Define the target probability density function (PDF)</span>
+    <span class="n">dim</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">inv_cov</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">cov</span><span class="p">)</span>
+    <span class="n">det_cov</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">det</span><span class="p">(</span><span class="n">cov</span><span class="p">)</span>
+    <span class="n">x_diff</span> <span class="o">=</span> <span class="n">x</span> <span class="o">-</span> <span class="n">mean</span>
+    <span class="n">exponent</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">x_diff</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">inv_cov</span> <span class="o">@</span> <span class="n">x_diff</span>
+
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">exponent</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span> <span class="o">**</span> <span class="n">dim</span> <span class="o">*</span> <span class="n">det_cov</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">target_pdf</span><span class="p">(</span><span class="n">theta</span><span class="p">):</span>
+    <span class="c1"># Define the Gaussian mixture components</span>
+    <span class="n">means</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">])]</span>
+    <span class="n">covariances</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])]</span>
+    <span class="n">weights</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">]</span>
+
+    <span class="c1"># Calculate the weighted sum of the Gaussian components</span>
+    <span class="n">pdf_value</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+        <span class="n">pdf_value</span> <span class="o">+=</span> <span class="n">weights</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">multivariate_gaussian_pdf</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">means</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">covariances</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+    <span class="k">return</span> <span class="n">pdf_value</span>
+
+<span class="k">def</span> <span class="nf">proposal_distribution</span><span class="p">(</span><span class="n">current_position</span><span class="p">,</span> <span class="n">proposal_covariance</span><span class="p">):</span>
+    <span class="c1"># Proposal distribution: 2D Gaussian centered at the current position with a given covariance matrix</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">multivariate_normal</span><span class="p">(</span><span class="n">current_position</span><span class="p">,</span> <span class="n">proposal_covariance</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">metropolis_hastings</span><span class="p">(</span><span class="n">target_pdf</span><span class="p">,</span> <span class="n">proposal_distribution</span><span class="p">,</span> <span class="n">proposal_covariance</span><span class="p">,</span> <span class="n">num_samples</span><span class="p">,</span> <span class="n">initial_position</span><span class="p">):</span>
+    <span class="c1"># Metropolis-Hastings algorithm</span>
+    <span class="n">current_position</span> <span class="o">=</span> <span class="n">initial_position</span>
+    <span class="n">samples</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_samples</span><span class="p">):</span>
+        <span class="n">proposal</span> <span class="o">=</span> <span class="n">proposal_distribution</span><span class="p">(</span><span class="n">current_position</span><span class="p">,</span> <span class="n">proposal_covariance</span><span class="p">)</span>
+        <span class="n">pdf_current</span> <span class="o">=</span> <span class="n">target_pdf</span><span class="p">(</span><span class="n">current_position</span><span class="p">)</span>
+        <span class="n">pdf_proposal</span> <span class="o">=</span> <span class="n">target_pdf</span><span class="p">(</span><span class="n">proposal</span><span class="p">)</span>
+
+        <span class="n">acceptance_ratio</span> <span class="o">=</span> <span class="n">pdf_proposal</span> <span class="o">/</span> <span class="n">pdf_current</span>
+
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">acceptance_ratio</span><span class="p">:</span>
+            <span class="n">current_position</span> <span class="o">=</span> <span class="n">proposal</span>
+
+        <span class="n">samples</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">current_position</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">samples</span><span class="p">)</span>
+
+
+<span class="c1"># Parameters for the algorithm</span>
+<span class="n">num_samples</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="n">initial_position</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="n">proposal_covariance</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">]])</span>
+
+<span class="c1"># Run Metropolis-Hastings</span>
+<span class="n">samples</span> <span class="o">=</span> <span class="n">metropolis_hastings</span><span class="p">(</span><span class="n">target_pdf</span><span class="p">,</span> <span class="n">proposal_distribution</span><span class="p">,</span> <span class="n">proposal_covariance</span><span class="p">,</span> <span class="n">num_samples</span><span class="p">,</span> <span class="n">initial_position</span><span class="p">)</span>
+
+<span class="c1"># Visualize the samples</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">samples</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">samples</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Y&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Metropolis-Hastings Samples&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/transport_mcmc_15_0.png" src="_images/transport_mcmc_15_0.png" />
+</div>
+</div>
+<p>As we can see, 1000 samples aren’t enough for the MH algorithm to converge and the result is a really bad approximation of our mixture.</p>
+</section>
+<section id="MH-with-transport-map">
+<h2>MH with transport map<a class="headerlink" href="#MH-with-transport-map" title="Permalink to this heading"></a></h2>
+<p>We fix our source measure to <span class="math notranslate nohighlight">\(\nu = \mathcal{N}(0_2, I_2)\)</span>. Here, we suppose that we already have a map <span class="math notranslate nohighlight">\(T\)</span> such that <span class="math notranslate nohighlight">\(T_\#\nu \simeq \mu\)</span>. To do so, we already generated samples from <span class="math notranslate nohighlight">\(\nu\)</span> and optimized our approximation <span class="math notranslate nohighlight">\(T\)</span>. We will adapt the MH algorithm to make use of our transport map.</p>
+<p>First of all, let’s visualize our map <span class="math notranslate nohighlight">\(T\)</span>:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">means</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">])]</span>
+<span class="n">covariances</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])]</span>
+<span class="n">weights</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">]</span>
+
+<span class="c1"># Sample points from the Gaussian mixture</span>
+<span class="n">num_samples</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">sample_gaussian_mixture</span><span class="p">(</span><span class="n">num_samples</span><span class="p">,</span> <span class="n">means</span><span class="p">,</span> <span class="n">covariances</span><span class="p">,</span> <span class="n">weights</span><span class="p">)</span>
+
+<span class="c1">#Find the transport map</span>
+<span class="n">coeff_T1</span><span class="p">,</span> <span class="n">coeff_T2</span> <span class="o">=</span> <span class="n">optimize_parameters</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+<span class="c1">#visualize the transport map and the samples</span>
+<span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+
+<span class="n">plot_density_approx</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Density approx. for X&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax1</span><span class="p">)</span>
+<span class="n">plot_density_approx</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Density approx. for T(X)&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax2</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/transport_mcmc_18_0.png" src="_images/transport_mcmc_18_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">multivariate_gaussian_pdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">mean</span><span class="p">,</span> <span class="n">cov</span><span class="p">):</span>
+    <span class="n">dim</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">inv_cov</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">cov</span><span class="p">)</span>
+    <span class="n">det_cov</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">det</span><span class="p">(</span><span class="n">cov</span><span class="p">)</span>
+    <span class="n">x_diff</span> <span class="o">=</span> <span class="n">x</span> <span class="o">-</span> <span class="n">mean</span>
+    <span class="n">exponent</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">x_diff</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">inv_cov</span> <span class="o">@</span> <span class="n">x_diff</span>
+
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">exponent</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span> <span class="o">**</span> <span class="n">dim</span> <span class="o">*</span> <span class="n">det_cov</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">target_pdf</span><span class="p">(</span><span class="n">theta</span><span class="p">):</span>
+    <span class="c1"># Define the Gaussian mixture components</span>
+    <span class="n">means</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">])]</span>
+    <span class="n">covariances</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])]</span>
+    <span class="n">weights</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">]</span>
+
+    <span class="c1"># Calculate the weighted sum of the Gaussian components</span>
+    <span class="n">pdf_value</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+        <span class="n">pdf_value</span> <span class="o">+=</span> <span class="n">weights</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">multivariate_gaussian_pdf</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">means</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">covariances</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+    <span class="k">return</span> <span class="n">pdf_value</span>
+
+<span class="c1"># Define the transport map and its inverse</span>
+<span class="k">def</span> <span class="nf">S</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">coeff_T1</span><span class="p">,</span> <span class="n">coeff_T2</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">T1</span><span class="p">(</span><span class="n">coeff_T1</span><span class="p">,</span> <span class="n">theta</span><span class="p">),</span> <span class="n">T2</span><span class="p">(</span><span class="n">coeff_T2</span><span class="p">,</span> <span class="n">theta</span><span class="p">)])</span>
+
+<span class="k">def</span> <span class="nf">S_inv</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">coeff_T1</span><span class="p">,</span> <span class="n">coeff_T2</span><span class="p">,</span> <span class="n">bounds</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">T_inv</span><span class="p">(</span><span class="n">coeff_T1</span><span class="p">,</span> <span class="n">coeff_T2</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">bounds</span><span class="p">)</span>
+
+<span class="c1"># Define the gradient of the transport map</span>
+<span class="k">def</span> <span class="nf">det_grad_S</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">coeff_T1</span><span class="p">,</span> <span class="n">coeff_T2</span><span class="p">):</span>
+    <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">coeff_T1</span>
+    <span class="n">partial_T1</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="o">*</span><span class="n">theta</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">b</span>
+    <span class="n">a1</span><span class="p">,</span> <span class="n">a2</span><span class="p">,</span> <span class="n">b1</span><span class="p">,</span> <span class="n">b2</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">coeff_T2</span>
+    <span class="n">partial_T2</span> <span class="o">=</span> <span class="n">a2</span><span class="o">*</span><span class="n">theta</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">b2</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">partial_T1</span> <span class="o">*</span> <span class="n">partial_T2</span><span class="p">)</span>
+
+<span class="c1"># Define the reference proposal distribution</span>
+<span class="k">def</span> <span class="nf">reference_proposal</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">proposal_covariance</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">multivariate_normal</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">proposal_covariance</span><span class="p">)</span>
+
+
+<span class="c1"># Modified Metropolis-Hastings algorithm using the transport map</span>
+<span class="k">def</span> <span class="nf">metropolis_hastings_with_transport_map</span><span class="p">(</span><span class="n">target_pdf</span><span class="p">,</span> <span class="n">coeff_T1</span><span class="p">,</span> <span class="n">coeff_T2</span><span class="p">,</span> <span class="n">bounds</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">S_inv</span><span class="p">,</span> <span class="n">reference_proposal</span><span class="p">,</span> <span class="n">proposal_covariance</span><span class="p">,</span> <span class="n">num_samples</span><span class="p">,</span> <span class="n">initial_position</span><span class="p">):</span>
+    <span class="n">theta_current</span> <span class="o">=</span> <span class="n">initial_position</span>
+    <span class="n">samples</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_samples</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">r_current</span> <span class="o">=</span> <span class="n">S</span><span class="p">(</span><span class="n">theta_current</span><span class="p">,</span> <span class="n">coeff_T1</span><span class="p">,</span> <span class="n">coeff_T2</span><span class="p">)</span>
+            <span class="n">r_proposal</span> <span class="o">=</span> <span class="n">reference_proposal</span><span class="p">(</span><span class="n">r_current</span><span class="p">,</span> <span class="n">proposal_covariance</span><span class="p">)</span>
+            <span class="n">theta_proposal</span> <span class="o">=</span> <span class="n">S_inv</span><span class="p">(</span><span class="n">r_proposal</span><span class="p">,</span> <span class="n">coeff_T1</span><span class="p">,</span> <span class="n">coeff_T2</span><span class="p">,</span> <span class="n">bounds</span><span class="p">)</span>
+
+            <span class="n">pdf_current</span> <span class="o">=</span> <span class="n">target_pdf</span><span class="p">(</span><span class="n">theta_current</span><span class="p">)</span>
+            <span class="n">pdf_proposal</span> <span class="o">=</span> <span class="n">target_pdf</span><span class="p">(</span><span class="n">theta_proposal</span><span class="p">)</span>
+
+            <span class="k">def</span> <span class="nf">multivariate_gaussian_pdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">mean</span><span class="p">,</span> <span class="n">cov</span><span class="p">):</span>
+                <span class="n">dim</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+                <span class="n">inv_cov</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">cov</span><span class="p">)</span>
+                <span class="n">det_cov</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">det</span><span class="p">(</span><span class="n">cov</span><span class="p">)</span>
+                <span class="n">x_diff</span> <span class="o">=</span> <span class="n">x</span> <span class="o">-</span> <span class="n">mean</span>
+                <span class="n">exponent</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">x_diff</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">inv_cov</span> <span class="o">@</span> <span class="n">x_diff</span>
+
+                <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">exponent</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span> <span class="o">**</span> <span class="n">dim</span> <span class="o">*</span> <span class="n">det_cov</span><span class="p">)</span>
+
+            <span class="n">q_current_to_proposal</span> <span class="o">=</span> <span class="n">multivariate_gaussian_pdf</span><span class="p">(</span><span class="n">r_proposal</span><span class="p">,</span> <span class="n">r_current</span><span class="p">,</span> <span class="n">proposal_covariance</span><span class="p">)</span> <span class="o">*</span> <span class="n">det_grad_S</span><span class="p">(</span><span class="n">theta_proposal</span><span class="p">,</span> <span class="n">coeff_T1</span><span class="p">,</span> <span class="n">coeff_T2</span><span class="p">)</span>
+            <span class="n">q_proposal_to_current</span> <span class="o">=</span> <span class="n">multivariate_gaussian_pdf</span><span class="p">(</span><span class="n">r_current</span><span class="p">,</span> <span class="n">r_proposal</span><span class="p">,</span> <span class="n">proposal_covariance</span><span class="p">)</span> <span class="o">*</span> <span class="n">det_grad_S</span><span class="p">(</span><span class="n">theta_current</span><span class="p">,</span> <span class="n">coeff_T1</span><span class="p">,</span> <span class="n">coeff_T2</span><span class="p">)</span>
+
+            <span class="n">acceptance_ratio</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="n">pdf_proposal</span> <span class="o">*</span> <span class="n">q_proposal_to_current</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">pdf_current</span> <span class="o">*</span> <span class="n">q_current_to_proposal</span><span class="p">)])</span>
+
+            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">acceptance_ratio</span><span class="p">:</span>
+                <span class="n">theta_current</span> <span class="o">=</span> <span class="n">theta_proposal</span>
+
+            <span class="n">samples</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">theta_current</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">samples</span><span class="p">)</span>
+
+<span class="c1"># Parameters for the algorithm</span>
+<span class="n">num_samples</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="n">initial_position</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="n">proposal_covariance</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">]])</span>
+<span class="n">bounds</span> <span class="o">=</span> <span class="n">min_max</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+
+<span class="c1"># Run Metropolis-Hastings with a fixed transport map</span>
+<span class="n">samples</span> <span class="o">=</span> <span class="n">metropolis_hastings_with_transport_map</span><span class="p">(</span><span class="n">target_pdf</span><span class="p">,</span> <span class="n">coeff_T1</span><span class="p">,</span> <span class="n">coeff_T2</span><span class="p">,</span> <span class="n">bounds</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">S_inv</span><span class="p">,</span> <span class="n">reference_proposal</span><span class="p">,</span> <span class="n">proposal_covariance</span><span class="p">,</span> <span class="n">num_samples</span><span class="p">,</span> <span class="n">initial_position</span><span class="p">)</span>
+
+<span class="c1"># Visualize the samples</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">samples</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">samples</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Y&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Metropolis-Hastings with Transport Map Samples&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/transport_mcmc_19_0.png" src="_images/transport_mcmc_19_0.png" />
+</div>
+</div>
+<p>As we can see, even thoug our transport map isn’t a really accurate approximation in order to make <span class="math notranslate nohighlight">\(T_\#\nu\)</span> similare to a gaussian, the samples with the transport map proposals are way better than for the classing MH algorithm.</p>
+</section>
+</section>
+<section id="Addaptative-transport-map-MH">
+<h1>Addaptative transport map MH<a class="headerlink" href="#Addaptative-transport-map-MH" title="Permalink to this heading"></a></h1>
+<p>We we will implement the main algorithm of the paper we studied. In this algorithm, we start with the normal MH algorithm and each K steps, we construct a new map with the last K samples found.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">adaptative_transport_mh</span><span class="p">(</span><span class="n">first_samples</span><span class="p">,</span> <span class="n">target_pdf</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">S_inv</span><span class="p">,</span> <span class="n">reference_proposal</span><span class="p">,</span> <span class="n">proposal_covariance</span><span class="p">,</span> <span class="n">num_samples</span><span class="p">,</span> <span class="n">num_loop</span><span class="p">):</span>
+    <span class="c1">#store the samples</span>
+    <span class="n">samples</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">num_samples</span><span class="o">*</span><span class="n">num_loop</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="c1"># number of samples from MH</span>
+    <span class="n">n_samples_MH</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">first_samples</span><span class="p">)</span>
+    <span class="c1">#add them in the samples</span>
+    <span class="n">samples</span><span class="p">[:</span><span class="n">n_samples_MH</span><span class="p">]</span> <span class="o">=</span> <span class="n">first_samples</span>
+    <span class="c1">#take the last 100 of MH for the approx</span>
+    <span class="n">approx</span> <span class="o">=</span> <span class="n">first_samples</span><span class="p">[</span><span class="o">-</span><span class="mi">100</span><span class="p">:]</span>
+    <span class="c1">#estimate first map with the first samples (generated with usual MH)</span>
+    <span class="n">coeff_T1</span><span class="p">,</span> <span class="n">coeff_T2</span> <span class="o">=</span> <span class="n">optimize_parameters</span><span class="p">(</span><span class="n">first_samples</span><span class="p">)</span> <span class="c1">#we don&#39;t take the first 100 samples because they are not representative of the distribution</span>
+    <span class="c1">#bound</span>
+    <span class="n">bounds</span> <span class="o">=</span> <span class="n">min_max</span><span class="p">(</span><span class="n">first_samples</span><span class="p">)</span>
+    <span class="c1"># update the initial position</span>
+    <span class="n">initial_position</span> <span class="o">=</span> <span class="n">first_samples</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">loop</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_loop</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="c1"># sample from the current map</span>
+        <span class="n">samples_loop</span> <span class="o">=</span> <span class="n">metropolis_hastings_with_transport_map</span><span class="p">(</span><span class="n">target_pdf</span><span class="p">,</span> <span class="n">coeff_T1</span><span class="p">,</span> <span class="n">coeff_T2</span><span class="p">,</span> <span class="n">bounds</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">S_inv</span><span class="p">,</span> <span class="n">reference_proposal</span><span class="p">,</span> <span class="n">proposal_covariance</span><span class="p">,</span> <span class="n">num_samples</span><span class="p">,</span> <span class="n">initial_position</span><span class="p">)</span>
+        <span class="c1"># find the new map</span>
+        <span class="n">coeff_T1</span><span class="p">,</span> <span class="n">coeff_T2</span> <span class="o">=</span> <span class="n">optimize_parameters</span><span class="p">(</span><span class="n">samples_loop</span><span class="p">)</span>
+        <span class="c1"># update the initial position</span>
+        <span class="n">initial_position</span> <span class="o">=</span> <span class="n">samples</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="c1"># store the samples</span>
+        <span class="n">len_s</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">samples_loop</span><span class="p">)</span> <span class="c1">#might be different if an error occured for the inverse</span>
+        <span class="n">samples</span><span class="p">[</span><span class="n">loop</span><span class="o">*</span><span class="n">num_samples</span><span class="p">:(</span><span class="n">loop</span><span class="p">)</span><span class="o">*</span><span class="n">num_samples</span><span class="o">+</span> <span class="n">len_s</span><span class="p">]</span> <span class="o">=</span> <span class="n">samples_loop</span>
+        <span class="c1">#bound</span>
+        <span class="n">bounds</span> <span class="o">=</span> <span class="n">min_max</span><span class="p">(</span><span class="n">samples_loop</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">samples</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[62]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Parameters for the algorithm</span>
+<span class="n">num_samples</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">num_loop</span> <span class="o">=</span> <span class="mi">5</span> <span class="c1"># not 10 since first loop is done with MH</span>
+<span class="n">initial_position</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="n">proposal_covariance</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">]])</span>
+<span class="c1"># Run Metropolis-Hastings</span>
+<span class="n">n_samples_MH</span> <span class="o">=</span> <span class="mi">500</span>
+<span class="n">first_samples</span> <span class="o">=</span> <span class="n">metropolis_hastings</span><span class="p">(</span><span class="n">target_pdf</span><span class="p">,</span> <span class="n">proposal_distribution</span><span class="p">,</span> <span class="n">proposal_covariance</span><span class="p">,</span> <span class="n">n_samples_MH</span><span class="p">,</span> <span class="n">initial_position</span><span class="p">)</span>
+
+<span class="c1"># Run Metropolis-Hastings with n adaptative transport map</span>
+<span class="n">samples</span> <span class="o">=</span> <span class="n">adaptative_transport_mh</span><span class="p">(</span><span class="n">first_samples</span><span class="p">,</span> <span class="n">target_pdf</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">S_inv</span><span class="p">,</span> <span class="n">reference_proposal</span><span class="p">,</span> <span class="n">proposal_covariance</span><span class="p">,</span> <span class="n">num_samples</span><span class="p">,</span> <span class="n">num_loop</span><span class="p">)</span>
+<span class="c1"># Visualize the samples</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">samples</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">samples</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Y&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Metropolis-Hastings with adaptative map&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/transport_mcmc_23_0.png" src="_images/transport_mcmc_23_0.png" />
+</div>
+</div>
+<p><strong>Observation:</strong> The fixed transport map algorithm demonstrate superior performance compared to the vanilla MH algorithm. Both MH and adaptative transport MH performed poorly with only 1 000 samples. It’s normal that the adptative map performs poorly since the first map is construct over MH samples. However, in real-world scenarios, a fixed transport map may not be available, making the adaptive map version the only feasible option if we want to use transport maps.</p>
+<p>Next, we will compare the performance of our primary algorithm, the adaptive transport map MH, with that of the vanilla MH algorithm using a larger sample size. For this comparison, we generated 5,000 samples to observe the ergodic behavior of each algorithm more clearly.</p>
+<section id="Comparison-after-5-000-samples">
+<h2>Comparison after 5 000 samples<a class="headerlink" href="#Comparison-after-5-000-samples" title="Permalink to this heading"></a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Parameters for the algorithm</span>
+<span class="n">num_samples</span> <span class="o">=</span> <span class="mi">500</span>
+<span class="n">num_loop</span> <span class="o">=</span> <span class="mi">9</span> <span class="c1"># not 10 since first loop is done with MH</span>
+<span class="n">initial_position</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="n">proposal_covariance</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">]])</span>
+<span class="c1"># Run Metropolis-Hastings</span>
+<span class="n">n_samples_MH</span> <span class="o">=</span> <span class="mi">500</span>
+<span class="n">first_samples</span> <span class="o">=</span> <span class="n">metropolis_hastings</span><span class="p">(</span><span class="n">target_pdf</span><span class="p">,</span> <span class="n">proposal_distribution</span><span class="p">,</span> <span class="n">proposal_covariance</span><span class="p">,</span> <span class="n">n_samples_MH</span><span class="p">,</span> <span class="n">initial_position</span><span class="p">)</span>
+
+<span class="c1"># Run Metropolis-Hastings with n adaptative transport map</span>
+<span class="n">samples</span> <span class="o">=</span> <span class="n">adaptative_transport_mh</span><span class="p">(</span><span class="n">first_samples</span><span class="p">,</span> <span class="n">target_pdf</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">S_inv</span><span class="p">,</span> <span class="n">reference_proposal</span><span class="p">,</span> <span class="n">proposal_covariance</span><span class="p">,</span> <span class="n">num_samples</span><span class="p">,</span> <span class="n">num_loop</span><span class="p">)</span>
+<span class="c1"># Visualize the samples</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">samples</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">samples</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Y&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Metropolis-Hastings with adaptative map&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/transport_mcmc_25_0.png" src="_images/transport_mcmc_25_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[58]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#compare with MH 5000 samples</span>
+<span class="n">samples_MH</span> <span class="o">=</span> <span class="n">metropolis_hastings</span><span class="p">(</span><span class="n">target_pdf</span><span class="p">,</span> <span class="n">proposal_distribution</span><span class="p">,</span> <span class="n">proposal_covariance</span><span class="p">,</span> <span class="mi">5000</span><span class="p">,</span> <span class="n">initial_position</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">samples_MH</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">samples_MH</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Y&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Metropolis-Hastings with 5000 samples&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[58]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Text(0.5, 1.0, &#39;Metropolis-Hastings with 5000 samples&#39;)
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/transport_mcmc_26_1.png" src="_images/transport_mcmc_26_1.png" />
+</div>
+</div>
+<p><strong>Observation:</strong> From the results, it appears that the adaptive transport map algorithm has achieved convergence to the distribution using 5,000 samples, while one mode of the mixture appears to be lagging behind with the Metropolis-Hastings algorithm. However, we can see that the samples generated by the new algorithm are sparser compared to the vanilla MH algorithm, which produces samples that are much closer together.We could finetune the proposal covariance to correct this behavior.</p>
+</section>
+</section>
+<section id="Conclusion">
+<h1>Conclusion<a class="headerlink" href="#Conclusion" title="Permalink to this heading"></a></h1>
+<p>Adaptive transport maps show potential for improving MCMC efficiency, though solving the optimization problem is computationally intensive. Our experiments didn’t utilize parallelization or compare time efficiency. However, as the paper suggests, map update costs should decrease over time. As samples near the true target distribution, parameters converge to the true optimum, making a gradient-based solver’s initial guess better for this convex problem.</p>
+<p>Careful tuning of parameters, like map update frequency and basis functions, is crucial for successful adaptation. In practive, this tuning can be hard. Moreover, the map estimation relates strongly on samples generated to build them, making this algorithm dependant of non transport MCMC sammples to start with.</p>
+<p>Some possible extensions for transport map MCMC methods could include adaptive basis functions (e.g., wavelets or neural networks) for better accuracy and flexibility, and incorporating domain knowledge to inform the choice of auxiliary distribution or transport map. For example, if the target distribution is known to have certain symmetries or constraints, incorporating this knowledge into the transport map could improve efficiency and accuracy.</p>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to Transport_mcmc’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Ferdinand Genans.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
